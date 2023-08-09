@@ -1,21 +1,20 @@
 package com.example.school.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Studentt {
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	private long id;
 	private String name;
 	private String section;
-	private int rollNo;
 
-	public long getId() {
+    public long getId() {
 		return id;
 	}
 
@@ -39,19 +38,20 @@ public class Studentt {
 		this.section = section;
 	}
 
-	public int getRollNo() {
-		return rollNo;
+	public Studentt(long id, String name, String section) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.section = section;
 	}
 
-	public void setRollNo(int rollNo) {
-		this.rollNo = rollNo;
+	public Studentt() {
+		super();
 	}
 
 	@Override
 	public String toString() {
-		return "Studentt [id=" + id + ", name=" + name + ", section=" + section + ", rollNo=" + rollNo + "]";
+		return "Studentt [id=" + id + ", name=" + name + ", section=" + section + "]";
 	}
-
-	
 
 }

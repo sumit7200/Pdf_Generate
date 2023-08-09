@@ -61,7 +61,7 @@ public class PdfGenerator {
 
 		// Setting width of table, its columns and spacing
 		table.setWidthPercentage(100f);
-		table.setWidths(new int[] { 3, 3, 3 });
+		table.setWidths(new int[] { 3, 3, 3, });
 		table.setSpacingBefore(5);
 
 		// Create Table Cells for table header
@@ -84,8 +84,6 @@ public class PdfGenerator {
 		table.addCell(cell);
 		cell.setPhrase(new Phrase("Section", font));
 		table.addCell(cell);
-		cell.setPhrase(new Phrase("rollNo",font));
-		table.addCell(cell);
 
 		// Iterating over the list of students
 		for (Studentt student : studentList) {
@@ -95,8 +93,7 @@ public class PdfGenerator {
 			table.addCell(student.getName());
 			// Adding student section
 			table.addCell(student.getSection());
-			
-			table.addCell(student.getRollNo());
+
 		}
 		// Adding the created table to document
 		document.add(table);

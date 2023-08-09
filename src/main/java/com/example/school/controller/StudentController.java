@@ -22,33 +22,33 @@ import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
+
 public class StudentController {
 
-	@Autowired
-	private StudentService service;
+    @Autowired
+    private StudentService service;
 
-	@PostMapping("/save")
-	public ResponseEntity<Studentt> saveStudent(@RequestBody Studentt studentt) {
+    @PostMapping("/save")
+    public ResponseEntity<Studentt> saveStudent(@RequestBody Studentt studentt) {
 
-		service.saveStudent(studentt);
-		return new ResponseEntity<>(studentt, HttpStatus.CREATED);
-	}
+        service.saveStudent(studentt);
+        return new ResponseEntity<>(studentt, HttpStatus.CREATED);
+    }
 
-	@GetMapping("/pdf/students")
-	public void generatePdf(HttpServletResponse response) throws DocumentException, IOException {
+    @GetMapping("/pdf/students")
+    public void generatePdf(HttpServletResponse response) throws DocumentException, IOException {
 
-		response.setContentType("application/pdf");
-		DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD:HH:MM:SS");
-		String currentDateTime = dateFormat.format(new Date());
-		String headerkey = "Content-Disposition";
-		String headervalue = "attachment; filename=pdf_" + currentDateTime + ".pdf";
-		response.setHeader(headerkey, headervalue);
+        response.setContentType("application/pdf");
+        DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD:HH:MM:SS");
+        String currentDateTime = dateFormat.format(new Date());
+        String headerkey = "Content-Disposition";
+        String headervalue = "attachment; filename=pdf_" + currentDateTime + ".pdf";
+        response.setHeader(headerkey, headervalue);
+        List<Studentt> studentList = service.findAllStudents();
+        PdfGenerator generator = new PdfGenerator();
+        generator.setStudentList(studentList);
+        generator.generate(response);
 
-		List<Studentt> studentList = service.findAllStudents();
-
-		PdfGenerator generator = new PdfGenerator();
-		generator.setStudentList(studentList);
-		generator.generate(response);
-
-	}
+    }
 }
+
